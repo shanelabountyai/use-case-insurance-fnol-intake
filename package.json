@@ -1,0 +1,42 @@
+{
+  "name": "insurance-fnol-intake",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "dotenv -e .env.local -- npm run dev -w web",
+    "build": "dotenv -e .env.local -- npm run build -w web",
+    "start": "dotenv -e .env.local -- npm run start -w web",
+    "lint": "npm run lint -w web",
+    "typecheck": "npm run typecheck -w web",
+    "test": "dotenv -e .env.test -e .env.local -- vitest run",
+    "test:watch": "dotenv -e .env.test -e .env.local -- vitest",
+    "test:e2e": "dotenv -e .env.test -e .env.local -- playwright test",
+    "dev:test": "dotenv -e .env.test -e .env.local -- npm run dev -w web",
+    "db:generate": "dotenv -e .env.local -- prisma generate --schema packages/db/prisma/schema.prisma",
+    "db:migrate": "dotenv -e .env.local -- prisma migrate dev --schema packages/db/prisma/schema.prisma",
+    "db:migrate:dev": "dotenv -e .env.local -- prisma migrate deploy --schema packages/db/prisma/schema.prisma",
+    "db:migrate:test": "dotenv -e .env.test -e .env.local -- prisma migrate deploy --schema packages/db/prisma/schema.prisma",
+    "db:migrate:all": "npm run db:migrate:test && npm run db:migrate:dev",
+    "db:status:test": "dotenv -e .env.test -e .env.local -- prisma migrate status --schema packages/db/prisma/schema.prisma",
+    "db:status:dev": "dotenv -e .env.local -- prisma migrate status --schema packages/db/prisma/schema.prisma",
+    "db:status": "npm run db:status:test && npm run db:status:dev",
+    "db:seed": "dotenv -e .env.local -- tsx packages/db/prisma/seed.mts",
+    "db:seed:test": "dotenv -e .env.test -e .env.local -- tsx packages/db/prisma/seed.mts",
+    "db:reset:test": "dropdb --if-exists fnol_intake_test && createdb fnol_intake_test && npm run db:migrate:test && npm run db:seed:test",
+    "db:studio": "dotenv -e .env.local -- prisma studio --schema packages/db/prisma/schema.prisma",
+    "postinstall": "prisma generate --schema packages/db/prisma/schema.prisma"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.10.2",
+    "@lhci/cli": "^0.15.1",
+    "@playwright/test": "^1.56.1",
+    "dotenv-cli": "^10.0.0",
+    "prisma": "^6.19.0",
+    "tsx": "^4.23.1",
+    "vitest": "^3.2.4"
+  }
+}

@@ -2,3 +2,27 @@ node_modules/
 .env
 .env*.local
 .DS_Store
+
+# next.js
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+
+# prisma generated client
+packages/db/generated/
+
+# testing
+coverage/
+test-results/
+playwright-report/
+blob-report/
+.playwright/
+.lighthouseci/
+
+# env — .env.example documents the NAMES only
+.env.test
+.env*.local
+
+# vercel
+.vercel

@@ -1,0 +1,14 @@
+{
+  "name": "@fnol/core",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "exports": {
+    ".": "./index.ts"
+  },
+  "dependencies": {
+    "@fnol/db": "*"
+  }
+}

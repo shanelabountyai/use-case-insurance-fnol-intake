@@ -1,0 +1,19 @@
+// Insurance FNOL intake & extraction — data model.
+//
+// Deliberately empty of models. The entities this build needs are defined by
+// its milestones (see docs/prd/), and inventing them here would be exactly the
+// kind of assumption this project's working rules forbid: if it isn't in
+// CLAUDE.md or docs/, it is an open question, not a default to fill in.
+//
+// Sensitivity is regulated — see "Project boundaries" in CLAUDE.md before
+// adding anything that stores source content.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
