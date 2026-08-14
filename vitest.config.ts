@@ -9,6 +9,7 @@ export default defineConfig({
   },
   test: {
     environment: "node",
+    passWithNoTests: true,
     include: ["tests/**/*.test.ts", "apps/**/*.test.ts", "packages/**/*.test.ts"],
     exclude: ["**/node_modules/**", "**/.next/**", "e2e/**"],
   },
