@@ -60,6 +60,21 @@ Fix these before or during build:
 - If something isn't in this file or `docs/`, it's an open question, not an assumption to fill in.
 - Oversight is **required** and sensitivity is **regulated** — check any design change against both before proposing it.
 
+## Project boundaries
+
+**This build stands alone.** It has its own repo — `shanelabountyai/insurance-fnol-intake` — and owns every piece of infrastructure it needs. Nothing is shared with the Use Case Studio that scoped it, or with the sibling builds (`grant-proposal-assembly`, `support-ticket-deflection`).
+
+Provision per-project, never shared:
+
+- **Database** — its own Neon project for dev and production, so the state-level retention rules that govern this data apply to one database and are enforceable on it. Tests run against a **local Postgres** (`fnol_intake_test`), never a cloud database: a remote test DB turns a 0.75s integration test into 113s and makes infrastructure strain look exactly like flaky tests.
+- **Env** — its own `.env` / `.env.local`, not inherited from a parent folder. `.env.example` documents variable **names** only.
+- **Deploy and CI** — its own Vercel project and its own workflow.
+- **Model provider keys** — its own, so revoking or rotating one build's key never touches another's.
+
+**Why this is not ceremony.** This build's data is **regulated**, with state-level retention rules and a requirement that every automated extraction be auditable back to its source document. The sibling builds are **pii** and **internal**. Co-locating regulated claims data with either one drags both into this project's retention and audit obligations, and puts real FNOL submissions inside another pilot's blast radius. Separate owners, separate acceptance bars, separate rollback triggers: a pause here must not pause anything else.
+
+Schema travels through migrations in this repo. Data does not: fixtures never reach production, and production claims data never reaches a laptop.
+
 ## Layout
 
 - `docs/prd-pack.md` — session starter + one PRD prompt per milestone. Start here.
