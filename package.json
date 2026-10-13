@@ -7,6 +7,8 @@
     "packages/*"
   ],
   "scripts": {
+    "preflight": "if [ -x \"$HOME/.claude/bin/swapcheck\" ]; then \"$HOME/.claude/bin/swapcheck\" --quiet; fi",
+    "predev": "npm run preflight",
     "dev": "dotenv -e .env.local -- npm run dev -w web",
     "build": "dotenv -e .env.local -- npm run build -w web",
     "start": "dotenv -e .env.local -- npm run start -w web",
