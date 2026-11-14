@@ -1,4 +1,9 @@
 import { defineConfig } from "@playwright/test";
+import { assertLocalTestDatabase } from "./packages/db/local-guard";
+
+// K12: the e2e server is built and started with the same env as the specs;
+// refuse before building anything if that is not the local test database.
+assertLocalTestDatabase(process.env.DATABASE_URL, "fnol_intake_test");
 
 export default defineConfig({
   testDir: "./e2e",

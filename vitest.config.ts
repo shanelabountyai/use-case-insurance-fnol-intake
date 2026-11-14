@@ -1,5 +1,10 @@
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "vitest/config";
+import { assertLocalTestDatabase } from "./packages/db/local-guard";
+
+// K12: refuse to run the suite at all unless DATABASE_URL is this project's
+// local test database (loaded from .env.test by `npm test`).
+assertLocalTestDatabase(process.env.DATABASE_URL, "fnol_intake_test");
 
 export default defineConfig({
   resolve: {
